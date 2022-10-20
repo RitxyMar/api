@@ -2,54 +2,110 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: UserRepository::class)]
+/**
+ * User
+ *
+ * @ORM\Table(name="user")
+ * @ORM\Entity
+ */
 class User
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
-    #[ORM\Column(length: 255)]
-    private ?string $nombre = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=255, nullable=false)
+     */
+    private $nombre;
 
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255, nullable=false)
+     */
+    private $password;
 
-    public function getId(): ?int
+
+
+    /**
+     * Get the value of id
+     *
+     * @return  int
+     */ 
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getNombre(): ?string
+    /**
+     * Set the value of id
+     *
+     * @param  int  $id
+     *
+     * @return  self
+     */ 
+    public function setId(int $id)
     {
-        return $this->nombre;
-    }
-
-    public function setNombre(string $nombre): self
-    {
-        $this->nombre = $nombre;
+        $this->id = $id;
 
         return $this;
     }
 
-    public function getPassword(): ?string
+    /**
+     * Get the value of password
+     *
+     * @return  string
+     */ 
+    public function getPassword()
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    /**
+     * Set the value of password
+     *
+     * @param  string  $password
+     *
+     * @return  self
+     */ 
+    public function setPassword(string $password)
     {
         $this->password = $password;
 
         return $this;
     }
 
-    public function getLista()
+    /**
+     * Get the value of nombre
+     *
+     * @return  string
+     */ 
+    public function getNombre()
     {
-        
+        return $this->nombre;
+    }
+
+    /**
+     * Set the value of nombre
+     *
+     * @param  string  $nombre
+     *
+     * @return  self
+     */ 
+    public function setNombre(string $nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
     }
 }

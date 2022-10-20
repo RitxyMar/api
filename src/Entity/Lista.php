@@ -2,60 +2,113 @@
 
 namespace App\Entity;
 
-use App\Repository\ListaRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ListaRepository::class)]
+/**
+ * Lista
+ *
+ * @ORM\Table(name="lista")
+ * @ORM\Entity
+ */
 class Lista
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     */
+    private $name;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="usuario_id", type="integer", nullable=true)
+     */
+    private $usuarioId;
 
-    /*
-    *@var \User
-    *
-    *@ORM\ManyToOne(targetEntity="User")
-    *@ORM\JoinColumns({
-    *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-    *  })
-    */
-    private $user;
+    /**
+     * @var \User
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id", referencedColumnName="id")
+     * })
+     */
+    private $id;
 
 
 
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getName(): ?string
+    /**
+     * Get the value of name
+     *
+     * @return  string
+     */ 
+    public function getName()
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    /**
+     * Set the value of name
+     *
+     * @param  string  $name
+     *
+     * @return  self
+     */ 
+    public function setName(string $name)
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getCancion(): ?int
+    /**
+     * Get the value of usuarioId
+     *
+     * @return  int|null
+     */ 
+    public function getUsuarioId()
     {
-      return $this->cancion;   
+        return $this->usuarioId;
     }
 
-    public function getUser()
+    /**
+     * Set the value of usuarioId
+     *
+     * @param  int|null  $usuarioId
+     *
+     * @return  self
+     */ 
+    public function setUsuarioId($usuarioId)
     {
-        return $this->user;
+        $this->usuarioId = $usuarioId;
+
+        return $this;
     }
 
-  
-    
+    /**
+     * Get the value of id
+     *
+     * @return  \User
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @param  \User  $id
+     *
+     * @return  self
+     */ 
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 }
