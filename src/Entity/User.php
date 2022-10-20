@@ -17,7 +17,7 @@ class User
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -35,6 +35,10 @@ class User
      */
     private $password;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Lista", mappedBy="usuarioId")
+     */
+    private $listas;
 
 
     /**
@@ -105,6 +109,34 @@ class User
     public function setNombre(string $nombre)
     {
         $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getId();
+    }
+
+    /**
+     * Get the value of listas
+     */ 
+    public function getListas()
+    {
+        return $this->listas;
+    }
+
+    /**
+     * Set the value of listas
+     *
+     * @return  self
+     */ 
+    public function setListas($listas)
+    {
+        $this->listas = $listas;
 
         return $this;
     }

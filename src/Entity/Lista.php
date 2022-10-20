@@ -8,7 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
  * Lista
  *
  * @ORM\Table(name="lista")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ListaRepository")
+ * 
  */
 class Lista
 {
@@ -20,21 +21,26 @@ class Lista
     private $name;
 
     /**
-     * @var int|null
+     * @var \User
      *
-     * @ORM\Column(name="usuario_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="listas")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
+     * })
      */
     private $usuarioId;
 
     /**
+     * @ORM\OneToMany(targetEntity="Cancion", mappedBy="listaId")
+     */
+    private $canciones;
+
+    /**
      * @var \User
      *
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id", referencedColumnName="id")
-     * })
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -67,7 +73,7 @@ class Lista
     /**
      * Get the value of usuarioId
      *
-     * @return  int|null
+     * @return  \User
      */ 
     public function getUsuarioId()
     {
@@ -77,7 +83,7 @@ class Lista
     /**
      * Set the value of usuarioId
      *
-     * @param  int|null  $usuarioId
+     * @param  \User  $usuarioId
      *
      * @return  self
      */ 
@@ -91,7 +97,7 @@ class Lista
     /**
      * Get the value of id
      *
-     * @return  \User
+     * @return  int
      */ 
     public function getId()
     {
@@ -101,13 +107,33 @@ class Lista
     /**
      * Set the value of id
      *
-     * @param  \User  $id
+     * @param  int  $id
      *
      * @return  self
      */ 
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of canciones
+     */ 
+    public function getCanciones()
+    {
+        return $this->canciones;
+    }
+
+    /**
+     * Set the value of canciones
+     *
+     * @return  self
+     */ 
+    public function setCanciones($canciones)
+    {
+        $this->canciones = $canciones;
 
         return $this;
     }

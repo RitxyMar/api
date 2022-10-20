@@ -27,21 +27,21 @@ class Cancion
     private $artista;
 
     /**
-     * @var int|null
+     * @var \Lista
      *
-     * @ORM\Column(name="lista_id", type="integer", nullable=true)
+     * @ORM\OneToOne(targetEntity="Lista", inversedBy="canciones")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="lista_id", referencedColumnName="id")
+     * })
      */
     private $listaId;
 
     /**
-     * @var \Lista
+     * @var int
      *
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Lista")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id", referencedColumnName="id")
-     * })
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -95,10 +95,11 @@ class Cancion
         return $this;
     }
 
+
     /**
      * Get the value of listaId
      *
-     * @return  int|null
+     * @return  \Lista
      */ 
     public function getListaId()
     {
@@ -108,7 +109,7 @@ class Cancion
     /**
      * Set the value of listaId
      *
-     * @param  int|null  $listaId
+     * @param  \Lista  $listaId
      *
      * @return  self
      */ 
@@ -122,7 +123,7 @@ class Cancion
     /**
      * Get the value of id
      *
-     * @return  \Lista
+     * @return  int
      */ 
     public function getId()
     {
@@ -132,11 +133,11 @@ class Cancion
     /**
      * Set the value of id
      *
-     * @param  \Lista  $id
+     * @param  int  $id
      *
      * @return  self
      */ 
-    public function setId($id)
+    public function setId(int $id)
     {
         $this->id = $id;
 
